@@ -7,8 +7,14 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  background: linear-gradient(260deg, #b75d62, #754d4f);
+.handbag-body {
+  background: linear-gradient(260deg, #b75d62, #4d6f75);
+}
+.boot-body {
+  background: linear-gradient(260deg, #5d89b7, #6a754d);
+}
+.hat-body {
+  background: linear-gradient(260deg, #5db7a5, #704d75);
 }
 
 .showcase {
