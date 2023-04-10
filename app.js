@@ -37,26 +37,27 @@ const leaveAnimation = (current, done) => {
   );
 };
 
-const enterAnimation = (current, done) => {
+const enterAnimation = (current, done, gradient) => {
   const product = current.querySelector(".image-container");
   const text = current.querySelector(".showcase-text");
   const circles = current.querySelectorAll(".circle");
   const arrow = current.querySelector(".showcase-arrow");
 
   return (
-    tlLeave.fromTo(arrow, { opacity: 0, y: 50 }, { opacity: 1, y: 0 }),
-    tlLeave.fromTo(
+    tlEnter.fromTo(arrow, { opacity: 0, y: 50 }, { opacity: 1, y: 0 }),
+    tlEnter.fromTo(
       product,
       { y: -100, opacity: 0 },
       { y: 0, opacity: 1, onComplete: done },
       "<"
     ),
-    tlLeave.fromTo(text, { y: -100, opacity: 0 }, { opacity: 1, y: 0 }, "<"),
-    tlLeave.fromTo(
+    tlEnter.to("body", { background: gradient }, "<"),
+    tlEnter.fromTo(text, { y: -100, opacity: 0 }, { opacity: 1, y: 0 }, "<"),
+    tlEnter.fromTo(
       circles,
       { y: -200, opacity: 0 },
       {
-        y: -200,
+        y: 0,
         opacity: 1,
         stagger: 0.15,
         ease: "back.out(1.7)",
@@ -82,8 +83,20 @@ barba.init({
       enter(data) {
         const done = this.async();
         let next = data.next.container;
-        enterAnimation(next, done);
+        let gradient = getGradient(data.next.namespace);
+        enterAnimation(next, done, gradient);
       },
     },
   ],
 });
+
+function getGradient(name) {
+  switch (name) {
+    case "handbag":
+      return "linear-gradient(260deg, #b75d62, #754d53)";
+    case "boot":
+      return "linear-gradient(260deg, #5d89b7, #6a754d)";
+    case "hat":
+      return "linear-gradient(260deg, #5db772, #2c4b20";
+  }
+}
